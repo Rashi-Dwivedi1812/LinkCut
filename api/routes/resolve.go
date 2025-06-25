@@ -3,9 +3,8 @@ package routes
 import (
 	"Url-Shortener/database"
 
-	"github.com/go-redis/redis/v8"
+	// "github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v8"
 )
 
 func ResolveURL(c *fiber.Ctx)error{
@@ -16,11 +15,11 @@ func ResolveURL(c *fiber.Ctx)error{
 	value,err :=r.Get(database.Ctx,url).Result()
 	if err!=nil{
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"error":"short not found in the database"
+			"error":"short not found in the database",
 		})
 	}else if err!= nil{
-		return c.Status(fiber.StatusInternalError).JSON(fiber.Map{
-			"error":"cannot connect to db"
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error":"cannot connect to db",
 		})
 	}
 	rInr := database.CreateClient(1)

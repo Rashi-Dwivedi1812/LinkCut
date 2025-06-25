@@ -1,6 +1,11 @@
 package routes
 
-import "time"
+import (
+	"Url-Shortener/helpers"
+	"time"
+	"github.com/asaskevich/govalidator"
+	"github.com/gofiber/fiber/v2"
+)
 
 type request struct{
 	URL string       `json:"url"`
@@ -35,5 +40,5 @@ func ShortenURL(c *fiber.Ctx)error{
 	}
 	
 	//enforce https,SSL
-	body.URL = helpers.enforceHTTP(body.URL)
+	body.URL = helpers.EnforceHTTP(body.URL)
 }

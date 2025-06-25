@@ -3,10 +3,7 @@ package database
 import (
 	"context"
 	"os"
-
 	"github.com/go-redis/redis/v8"
-	"github.com/redis/go-redis/v9"
-	"google.golang.org/genproto/googleapis/cloud/redis/v1"
 )
 
 var Ctx = context.Background()
