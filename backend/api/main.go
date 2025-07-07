@@ -13,9 +13,12 @@ import (
 )
 
 func setupRoutes(app *fiber.App) {
-	app.Get("/:url", routes.ResolveURL)
-	app.Post("/:short", routes.ShortenURL)
+	api := app.Group("/api")
+
+	api.Get("/:url", routes.ResolveURL)
+	api.Post("/:short", routes.ShortenURL)
 }
+
 
 func main() {
 	err := godotenv.Load()
@@ -28,18 +31,30 @@ func main() {
 	app.Use(logger.New())
 
 	app.Use(cors.New(cors.Config{
-    AllowOrigins: "*",
+    AllowOrigins: "http://localhost:5173",
     AllowHeaders: "Origin, Content-Type, Accept",
-    AllowMethods: "GET,POST,OPTIONS",
+    AllowMethods: "GET, POST, OPTIONS",
 }))
+	
 fmt.Println("CORS middleware loaded ✅") 
+
+app.Options("/*", func(c *fiber.Ctx) error {
+	return c.SendStatus(fiber.StatusOK)
+})
 
 
 	setupRoutes(app)
 
-	port := os.Getenv("APP_PORT")
-	if port == "" {
-		port = "0.0.0.0:3000"
-	}
-	log.Fatal(app.Listen(port))
+port := os.Getenv("APP_PORT")
+if port == "" {
+	port = ":3000"
+}
+
+fmt.Println("🚀 Server starting on", port)
+err = app.Listen(port)
+if err != nil {
+	log.Fatalf("❌ Failed to start server: %v", err)
+}
+
+
 }
