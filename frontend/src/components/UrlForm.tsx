@@ -60,7 +60,7 @@ const UrlForm: React.FC = () => {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-pink-600 to-indigo-600 hover:from-orange-700 hover:to-indigo-700 py-3 rounded-lg font-semibold text-white transition duration-200"
+          className="w-full bg-gradient-to-r from-pink-600 to-indigo-600 hover:from-pink-700 hover:to-indigo-700 py-3 rounded-lg font-semibold text-white transition duration-200"
         >
           ⚡ Shorten URL
         </button>
